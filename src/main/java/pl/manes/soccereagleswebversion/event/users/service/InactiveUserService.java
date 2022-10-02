@@ -17,11 +17,13 @@ public class InactiveUserService {
 
     @Transactional(readOnly = true)
     public List<InactiveUser> findAllInactiveUsers() {
+
         return inactiveUserRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public InactiveUser findInactiveUserById(UUID id) {
+
         return inactiveUserRepository.findById(id)
                 .orElseThrow();
     }
@@ -31,6 +33,7 @@ public class InactiveUserService {
         InactiveUser inactiveUser = new InactiveUser();
         inactiveUser.setUnknownUserName(inactiveUserRequest.getUnknownUserName());
         inactiveUser.setPresenceComments(inactiveUserRequest.getPresenceComments());
+
         return inactiveUserRepository.save(inactiveUser);
     }
 
@@ -40,11 +43,13 @@ public class InactiveUserService {
                 .orElseThrow();
         inactiveUser.setUnknownUserName(inactiveUserRequest.getUnknownUserName());
         inactiveUser.setPresenceComments(inactiveUserRequest.getPresenceComments());
+
         return inactiveUserRepository.save(inactiveUser);
     }
 
     @Transactional
     public void deleteInactiveUser(UUID id) {
+
         inactiveUserRepository.deleteById(id);
     }
 }

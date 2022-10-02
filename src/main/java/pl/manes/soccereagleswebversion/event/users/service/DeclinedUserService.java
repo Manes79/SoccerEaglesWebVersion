@@ -17,34 +17,39 @@ public class DeclinedUserService {
 
     @Transactional(readOnly = true)
     public List<DeclinedUser> findAllDeclinedUsers() {
+
         return declinedUserRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public DeclinedUser findDeclinedUserById(UUID id) {
+
         return declinedUserRepository.findById(id)
                 .orElseThrow();
     }
 
     @Transactional
-    public DeclinedUser createDeclinedUser(DeclinedUser declinedUsersRequest) {
+    public DeclinedUser createDeclinedUser(DeclinedUser declinedUserRequest) {
         DeclinedUser declinedUsers = new DeclinedUser();
-        declinedUsers.setDeclinedUserName(declinedUsersRequest.getDeclinedUserName());
-        declinedUsers.setPresenceComments(declinedUsersRequest.getPresenceComments());
+        declinedUsers.setDeclinedUserName(declinedUserRequest.getDeclinedUserName());
+        declinedUsers.setPresenceComments(declinedUserRequest.getPresenceComments());
+
         return declinedUserRepository.save(declinedUsers);
     }
 
     @Transactional
-    public DeclinedUser updateDeclinedUser(UUID id, DeclinedUser declinedUsersRequest) {
+    public DeclinedUser updateDeclinedUser(UUID id, DeclinedUser declinedUserRequest) {
         DeclinedUser declinedUsers = declinedUserRepository.findById(id)
                 .orElseThrow();
-        declinedUsers.setDeclinedUserName(declinedUsersRequest.getDeclinedUserName());
-        declinedUsers.setPresenceComments(declinedUsersRequest.getPresenceComments());
+        declinedUsers.setDeclinedUserName(declinedUserRequest.getDeclinedUserName());
+        declinedUsers.setPresenceComments(declinedUserRequest.getPresenceComments());
+
         return declinedUserRepository.save(declinedUsers);
     }
 
     @Transactional
     public void deleteDeclinedUser(UUID id) {
+
         declinedUserRepository.deleteById(id);
     }
 }
