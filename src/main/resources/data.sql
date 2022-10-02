@@ -7,7 +7,7 @@
 -- insert into declinedusers(id, declined_user_name, presence_comments)
 -- values (gen_random_uuid(), '', '');
 --
--- insert into unknownusers(id, unknown_user_name, presence_comments)
+-- insert into inactiveusers(id, unknown_user_name, presence_comments)
 -- values (gen_random_uuid(), '', '');
 --
 -- insert into eventsdecision(id, event_decision, presence_comments)
