@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/confirmedusers")
+@RequestMapping("/events/confirmedusers")
 public class ConfirmedUserWebViewController {
 
     private final ConfirmedUserService confirmedUserService;
