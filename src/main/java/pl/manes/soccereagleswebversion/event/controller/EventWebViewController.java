@@ -19,6 +19,7 @@ public class EventWebViewController {
 
     @GetMapping
     public String viewAllEvents(Model model) {
+
         model.addAttribute("events", eventService.findAllEvents());
 
         return "event/index";
@@ -35,6 +36,7 @@ public class EventWebViewController {
 
     @GetMapping("create")
     public String addCreateEventView(Model model) {
+
         model.addAttribute("event", new Event());
 
         return "event/create";
@@ -42,6 +44,7 @@ public class EventWebViewController {
 
     @PostMapping
     public String createEvent(Event event) {
+
         eventService.createEvent(event);
 
         return "redirect:/events";
@@ -49,6 +52,7 @@ public class EventWebViewController {
 
     @GetMapping("{id}/edit")
     public String editViewEvent(Model model, @PathVariable UUID id) {
+
         model.addAttribute("event", eventService.findEventById(id));
 
         return "/event/edit";
@@ -69,6 +73,7 @@ public class EventWebViewController {
 
     @GetMapping("{id}/delete")
     public String deleteEventView(@PathVariable UUID id) {
+
         eventService.deleteEvent(id);
 
         return "redirect:/events";

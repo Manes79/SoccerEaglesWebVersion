@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.manes.soccereagleswebversion.event.domain.model.Event;
+import pl.manes.soccereagleswebversion.event.service.EventService;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.event.users.service.ConfirmedUserService;
 
@@ -19,12 +21,14 @@ public class ConfirmedUserWebViewController {
 
     private final ConfirmedUserService confirmedUserService;
 
+    private final EventService eventService;
+
     @GetMapping
     public String viewAllConfirmedUsers(Model model) {
 
         model.addAttribute("confirmedusers", confirmedUserService.findAllConfirmedUsers());
 
-        return "users/index";
+        return "event/users/index";
     }
 
     @GetMapping("{id}")
@@ -33,15 +37,18 @@ public class ConfirmedUserWebViewController {
         ConfirmedUser confirmedUsers = confirmedUserService.findConfirmedUserById(id);
         model.addAttribute("confirmed", confirmedUsers);
 
-        return "users/single";
+        return "event/users/single";
     }
 
-    @GetMapping("accept")
-    public String addConfirmedUserView(Model model) {
+    @GetMapping("{id}/accept")
+    public String addConfirmedUserView(@PathVariable UUID id, Model model) {
+
+        Event event = eventService.findEventById(id);
+        model.addAttribute("event", event);
 
         model.addAttribute("confirmed", new ConfirmedUser());
 
-        return "users/accept";
+        return "event/users/accept";
     }
 
     @PostMapping()

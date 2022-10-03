@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>SoccerEagles Event Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+
+<form class="form-control float-right" action="/events" method="post" th:object="${event}">
+
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Rodzaj wydarzenia</label>
+        <input th:field="*{eventName}"
+               type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+    </div>
+
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Data wydarzenia</label>
+        <input th:field="*{eventDate}"
+               type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+    </div>
+
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Miejsce wydarzenia</label>
+        <input th:field="*{eventPlace}"
+               type="text" class="form-control" id="formGroupExampleInput3" placeholder="">
+    </div>
+
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Komentarz do wydarzenia</label>
+        <input th:field="*{eventComments}"
+               type="text" class="form-control" id="formGroupExampleInput4" placeholder="">
+    </div>
+
+    <label>
+        <button type="submit" class="btn btn-primary">Stwórz Wydarzenie</button>
+    </label>
+
+</form>
+</body>
+</html>
