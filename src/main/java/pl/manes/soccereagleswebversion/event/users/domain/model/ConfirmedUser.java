@@ -5,10 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.manes.soccereagleswebversion.event.domain.model.Event;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -19,13 +16,15 @@ import java.util.UUID;
 public class ConfirmedUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String confirmedUserName;
 
     private String presenceComments;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Event event;
 
     public ConfirmedUser() {

@@ -51,7 +51,7 @@ public class ConfirmedUserWebViewController {
         return "event/users/accept";
     }
 
-    @PostMapping()
+    @PostMapping
     public String createConfirmedUser(ConfirmedUser confirmedUser) {
 
         confirmedUserService.createConfirmedUser(confirmedUser);

@@ -19,6 +19,7 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
+                <th class="event">Id</th>
                 <th class="event">Nazwa zawodnika</th>
                 <th class="event">Komentarz</th>
 
@@ -30,6 +31,7 @@
             <tr th:each="confirmed : ${confirmedusers}">
 
                 <td th:text="${confirmed.id}"></td>
+                <td th:text="${confirmed.confirmedUserName}"></td>
                 <td th:text="${confirmed.presenceComments}"></td>
 
                 <td>
@@ -42,5 +44,6 @@
 
     </div>
 </div>
+
 </body>
 </html>

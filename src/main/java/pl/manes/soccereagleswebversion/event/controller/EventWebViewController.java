@@ -25,13 +25,13 @@ public class EventWebViewController {
         return "event/index";
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{id}/details")
     public String singleEventView(@PathVariable UUID id, Model model) {
 
         Event event = eventService.findEventById(id);
         model.addAttribute("event", event);
 
-        return "event/single";
+        return "event/details";
     }
 
     @GetMapping("create")

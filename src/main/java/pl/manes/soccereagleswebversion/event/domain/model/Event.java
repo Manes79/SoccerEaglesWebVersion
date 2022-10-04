@@ -5,10 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,6 +17,7 @@ import java.util.UUID;
 public class Event {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String eventName;
@@ -30,7 +28,7 @@ public class Event {
 
     private String eventComments;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @ToString.Exclude
     Set<ConfirmedUser> confirmedUser;
 
