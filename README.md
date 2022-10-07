@@ -5,13 +5,13 @@ A simple application that allows you to create an event (training/sports match b
 
 Options:
 
-create an event (type, place, date and comment);
-display of participants who have confirmed participation;
-display of participants who will not participate in the event;
-display of participants who are undecided;
-communicating information about the event to participants;
-receiving inquiries from participants;
-cancelling the event;
+- create an event (type, place, date and comment);
+- display of participants who have confirmed participation;
+- display of participants who will not participate in the event;
+- display of participants who are undecided;
+- communicating information about the event to participants;
+- receiving inquiries from participants;
+- cancelling the event;
 
 The event participant has the ability to:
 confirm participation in the event;
