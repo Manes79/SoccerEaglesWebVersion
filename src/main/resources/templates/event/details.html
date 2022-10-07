@@ -43,21 +43,16 @@
 
         <td>
             <a class="btn btn-primary btn-sm"
-               th:href="@{'/events/confirmedusers/'+${event.id} + '/declined'}">
+               th:href="@{'/events/declinedusers/'+${event.id} + '/declined'}">
                 <i class="fas fa-folder"></i>Odrzuć</a>
         </td>
 
         <td>
             <a class="btn btn-primary btn-sm"
-               th:href="@{'/events/confirmedusers/'+${event.id} + '/inactive'}">
+               th:href="@{'/events/inactiveusers/'+${event.id} + '/inactive'}">
                 <i class="fas fa-folder"></i>Nieaktywny</a>
         </td>
 
-        <td>
-            <a class="btn btn-primary btn-sm"
-               th:href="@{'/events/confirmedusers/'+${event.id} + '/edit'}">
-                <i class="fas fa-folder"></i>Edytuj</a>
-        </td>
         </tbody>
 
     </table>
@@ -65,19 +60,19 @@
     <td>
         <a class="btn btn-primary btn-sm"
            a href="/events/confirmedusers/">
-            <i class="fas fa-folder"></i>Wyświetl potwierdzonych zawodników</a>
+            <i class="fas fa-folder"></i>Zawodnicy potwierdzeni</a>
     </td>
 
     <td>
         <a class="btn btn-primary btn-sm"
-           a href="/events/confirmedusers/">
-            <i class="fas fa-folder"></i>Wyświetl nieobecnych zawodników</a>
+           a href="/events/declinedusers/">
+            <i class="fas fa-folder"></i>Zawodnicy niepotwierdzeni</a>
     </td>
 
     <td>
         <a class="btn btn-primary btn-sm"
-           a href="/events/confirmedusers/">
-            <i class="fas fa-folder"></i>Wyświetl zawodników niepotwierdzonych</a>
+           a href="/events/inactiveusers/">
+            <i class="fas fa-folder"></i>Zawodnicy nieaktywni</a>
     </td>
 
 </div>

@@ -23,7 +23,6 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
-                <th class="event">Id</th>
                 <th class="event">Rodzaj wydarzenia</th>
                 <th class="event">Data wydarzenia</th>
                 <th class="event">Miejsce wydarzenia</th>
@@ -33,11 +32,9 @@
             <tbody>
             <tr th:each="event : ${events}">
 
-                <td th:text="${event.id}"></td>
                 <td th:text="${event.eventName}"></td>
                 <td th:text="${event.eventDate}"></td>
                 <td th:text="${event.eventPlace}"></td>
-
 
                 <td>
                     <a class="btn btn-primary btn-sm"

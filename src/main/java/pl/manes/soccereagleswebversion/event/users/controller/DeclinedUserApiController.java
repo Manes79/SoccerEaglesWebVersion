@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/declinedusers")
+@RequestMapping("api/v1/events/declinedusers")
 public class DeclinedUserApiController {
 
     private final DeclinedUserService declinedUserService;

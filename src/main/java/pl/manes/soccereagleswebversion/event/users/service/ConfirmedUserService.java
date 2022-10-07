@@ -3,8 +3,6 @@ package pl.manes.soccereagleswebversion.event.users.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.manes.soccereagleswebversion.event.domain.model.Event;
-import pl.manes.soccereagleswebversion.event.service.EventService;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.event.users.domain.repository.ConfirmedUserRepository;
 
@@ -16,8 +14,6 @@ import java.util.UUID;
 public class ConfirmedUserService {
 
     private final ConfirmedUserRepository confirmedUserRepository;
-
-    private final EventService eventService;
 
     @Transactional(readOnly = true)
     public List<ConfirmedUser> findAllConfirmedUsers() {
@@ -36,9 +32,6 @@ public class ConfirmedUserService {
     public ConfirmedUser createConfirmedUser(ConfirmedUser confirmedUserRequest) {
 
         ConfirmedUser confirmedUser = new ConfirmedUser();
-
-        confirmedUser.setEvent(confirmedUserRequest.getEvent());
-
         confirmedUser.setConfirmedUserName(confirmedUserRequest.getConfirmedUserName());
         confirmedUser.setPresenceComments(confirmedUserRequest.getPresenceComments());
 
