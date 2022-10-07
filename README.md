@@ -1,6 +1,7 @@
 English
 
 SoccerEaglesWebVersion
+
 A simple application that allows you to create an event (training/sports match by default), web version;
 
 Options:
@@ -20,9 +21,11 @@ The event participant has the ability to:
 - read information from the Event Manager;
 - ask questions to the Event Manager
 
+
 Polish
 
 SoccerEaglesWebVersion
+
 prosta aplikacja pozwalająca na utworzenie wydarzenia (domyślnie treningu/meczu sportowego), wersja webowa;
 
 Opcje:
