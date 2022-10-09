@@ -15,12 +15,12 @@ Options:
 - cancelling the event;
 
 The event participant has the ability to:
+
 - confirm participation in the event;
 - reject participation in the event;
 - read decisions on the status of the event;
 - read information from the Event Manager;
 - ask questions to the Event Manager
-
 
 Polish
 
@@ -39,6 +39,7 @@ Opcje:
 - anulowanie wydarzenia;
 
 Uczestnik wydarzenia ma możliwośći:
+
 - potwierdznie uczestnictwa w evencie;
 - odrzucenie uczestnictwa w evencie;
 - odczyt decyzji odnośnie statusu eventu;
