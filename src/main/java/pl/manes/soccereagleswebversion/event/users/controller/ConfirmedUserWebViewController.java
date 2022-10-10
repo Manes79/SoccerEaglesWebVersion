@@ -22,7 +22,7 @@ public class ConfirmedUserWebViewController {
 
         model.addAttribute("confirmedusers", confirmedUserService.findAllConfirmedUsers());
 
-        return "event/users/confirmedusersview";
+        return "event/details";
     }
 
     @GetMapping("{id}/accept")

@@ -22,7 +22,7 @@ public class InactiveUserWebViewController {
 
         model.addAttribute("inactiveusers", inactiveUserService.findAllInactiveUsers());
 
-        return "event/users/inactiveusersview";
+        return "event/details";
     }
 
     @GetMapping("{id}/inactive")

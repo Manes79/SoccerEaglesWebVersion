@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
+import pl.manes.soccereagleswebversion.event.users.domain.model.DeclinedUser;
+import pl.manes.soccereagleswebversion.event.users.domain.model.InactiveUser;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,6 +32,14 @@ public class Event {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @ToString.Exclude
     Set<ConfirmedUser> confirmedUser;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
+    @ToString.Exclude
+    Set<DeclinedUser> declinedUsers;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
+    @ToString.Exclude
+    Set<InactiveUser> unknownUserName;
 
     public Event() {
         this.id = UUID.randomUUID();

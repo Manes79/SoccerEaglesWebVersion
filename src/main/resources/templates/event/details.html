@@ -57,23 +57,91 @@
 
     </table>
 
-    <td>
-        <a class="btn btn-primary btn-sm"
-           a href="/events/confirmedusers/">
-            <i class="fas fa-folder"></i>Zawodnicy potwierdzeni</a>
-    </td>
+    <table class="table table-dark table-striped">
 
-    <td>
-        <a class="btn btn-primary btn-sm"
-           a href="/events/declinedusers/">
-            <i class="fas fa-folder"></i>Zawodnicy niepotwierdzeni</a>
-    </td>
+        <thead>
+        <h5 class="message">POTWIERDZENI ZAWODNICY</h5>
 
-    <td>
-        <a class="btn btn-primary btn-sm"
-           a href="/events/inactiveusers/">
-            <i class="fas fa-folder"></i>Zawodnicy nieaktywni</a>
-    </td>
+        <tr>
+            <th class="event">Nazwa zawodnika</th>
+            <th class="event">Komentarz</th>
+        </tr>
+        </thead>
+
+        <tr th:each="confirmed : ${event.confirmedUser}">
+
+            <td th:text="${confirmed.confirmedUserName}"></td>
+            <td th:text="${confirmed.presenceComments}"></td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/confirmedusers/'+${confirmed.id} + '/edit'}">
+                    <i class="fas fa-folder"></i>Dodaj komentarz</a>
+            </td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/confirmedusers/'+${confirmed.id} + '/delete'}">
+                    <i class="fas fa-folder"></i>Zmień status</a>
+            </td>
+    </table>
+
+    <table class="table table-dark table-striped">
+
+        <thead>
+        <h5 class="message">ZAWODNICY NIEPOTWIERDZENI</h5>
+
+        <tr>
+            <th class="event">Nazwa zawodnika</th>
+            <th class="event">Komentarz</th>
+        </tr>
+        </thead>
+
+        <tr th:each="declined : ${event.declinedUsers}">
+
+            <td th:text="${declined.declinedUserName}"></td>
+            <td th:text="${declined.presenceComments}"></td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/declinedusers/'+${declined.id} + '/edit'}">
+                    <i class="fas fa-folder"></i>Dodaj komentarz</a>
+            </td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/declinedusers/'+${declined.id} + '/edit'}">
+                    <i class="fas fa-folder"></i>Zmień status</a>
+            </td>
+    </table>
+
+    <table class="table table-dark table-striped">
+        <thead>
+
+        <h5 class="message">ZAWODNICY NIEAKTYWNI</h5>
+        <tr>
+            <th class="event">Nazwa zawodnika</th>
+            <th class="event">Komentarz</th>
+        </tr>
+        </thead>
+
+        <tr th:each="inactive : ${event.unknownUserName}">
+
+            <td th:text="${inactive.unknownUserName}"></td>
+            <td th:text="${inactive.presenceComments}"></td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/inactiveusers/'+${inactive.id} + '/edit'}">
+                    <i class="fas fa-folder"></i>Dodaj komentarz</a>
+            </td>
+
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{'/inactiveusers/'+${inactive.id} + '/delete'}">
+                    <i class="fas fa-folder"></i>Zmień status</a>
+            </td>
+    </table>
 
 </div>
 </body>

@@ -22,7 +22,7 @@ public class DeclinedUserWebViewController {
 
         model.addAttribute("declinedusers", declinedUserService.findAllDeclinedUsers());
 
-        return "event/users/declinedusersview";
+        return "event/details";
     }
 
     @GetMapping("{id}/declined")
