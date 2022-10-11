@@ -11,40 +11,40 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/inactiveusers")
+@RequestMapping("api/v1/{event-id}/inactiveusers")
 public class InactiveUserApiController {
 
     private final InactiveUserService inactiveUserService;
 
     @GetMapping
-    List<InactiveUser> displayInactiveUsers() {
+    List<InactiveUser> displayInactiveUsers(@PathVariable("event-id") UUID eventId) {
 
-        return inactiveUserService.findAllInactiveUsers();
+        return inactiveUserService.findAllInactiveUsersById(eventId);
     }
 
-    @GetMapping("{id}")
-    InactiveUser displayInactiveUsersById(@PathVariable UUID id) {
+    @GetMapping("{inactive-id}")
+    InactiveUser displayInactiveUsersById(@PathVariable("event-id") UUID eventId, @PathVariable("inactive-id") UUID inactiveId) {
 
-        return inactiveUserService.findInactiveUserById(id);
+        return inactiveUserService.findInactiveUserById(inactiveId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    InactiveUser displayCreateInactiveUser(@RequestBody InactiveUser inactiveUser) {
+    InactiveUser displayCreateInactiveUser(@PathVariable("event-id") UUID eventId, @RequestBody InactiveUser inactiveUser) {
 
-        return inactiveUserService.createInactiveUser(inactiveUser);
+        return inactiveUserService.createInactiveUser(eventId, inactiveUser);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{inactive-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    InactiveUser displayUpdateInactiveUser(@PathVariable UUID id, @RequestBody InactiveUser inactiveUser) {
+    InactiveUser displayUpdateInactiveUser(@PathVariable("event-id") UUID eventId, @PathVariable("inactive-id") UUID inactiveId, @RequestBody InactiveUser inactiveUser) {
 
-        return inactiveUserService.updateInactiveUser(id, inactiveUser);
+        return inactiveUserService.updateInactiveUser(inactiveId, inactiveUser);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{inactive-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void displayDeleteInactiveUser(@PathVariable UUID id) {
+    void displayDeleteInactiveUser(@PathVariable("inactive-id") UUID id, @PathVariable("event-id") String parameter) {
 
         inactiveUserService.deleteInactiveUser(id);
     }

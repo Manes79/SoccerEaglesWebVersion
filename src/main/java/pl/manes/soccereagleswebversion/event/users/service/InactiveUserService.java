@@ -3,6 +3,8 @@ package pl.manes.soccereagleswebversion.event.users.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.manes.soccereagleswebversion.event.domain.model.Event;
+import pl.manes.soccereagleswebversion.event.domain.repository.EventRepository;
 import pl.manes.soccereagleswebversion.event.users.domain.model.InactiveUser;
 import pl.manes.soccereagleswebversion.event.users.domain.repository.InactiveUserRepository;
 
@@ -15,32 +17,40 @@ public class InactiveUserService {
 
     private final InactiveUserRepository inactiveUserRepository;
 
-    @Transactional(readOnly = true)
-    public List<InactiveUser> findAllInactiveUsers() {
+    private final EventRepository eventRepository;
 
-        return inactiveUserRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<InactiveUser> findAllInactiveUsersById(UUID eventId) {
+
+        return inactiveUserRepository.findInactiveUsersById(eventId);
     }
 
     @Transactional(readOnly = true)
     public InactiveUser findInactiveUserById(UUID id) {
 
-        return inactiveUserRepository.findById(id)
-                .orElseThrow();
+        return inactiveUserRepository.getReferenceById(id);
     }
 
     @Transactional
-    public InactiveUser createInactiveUser(InactiveUser inactiveUserRequest) {
+    public InactiveUser createInactiveUser(UUID eventId, InactiveUser inactiveUserRequest) {
+
         InactiveUser inactiveUser = new InactiveUser();
         inactiveUser.setUnknownUserName(inactiveUserRequest.getUnknownUserName());
         inactiveUser.setPresenceComments(inactiveUserRequest.getPresenceComments());
 
-        return inactiveUserRepository.save(inactiveUser);
+        Event event = eventRepository.getReferenceById(eventId);
+        event.addInactiveUser(inactiveUser);
+
+        inactiveUserRepository.save(inactiveUser);
+        eventRepository.save(event);
+
+        return inactiveUser;
     }
 
     @Transactional
     public InactiveUser updateInactiveUser(UUID id, InactiveUser inactiveUserRequest) {
-        InactiveUser inactiveUser = inactiveUserRepository.findById(id)
-                .orElseThrow();
+
+        InactiveUser inactiveUser = inactiveUserRepository.getReferenceById(id);
         inactiveUser.setUnknownUserName(inactiveUserRequest.getUnknownUserName());
         inactiveUser.setPresenceComments(inactiveUserRequest.getPresenceComments());
 

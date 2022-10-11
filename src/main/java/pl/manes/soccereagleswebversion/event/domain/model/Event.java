@@ -8,6 +8,7 @@ import pl.manes.soccereagleswebversion.event.users.domain.model.DeclinedUser;
 import pl.manes.soccereagleswebversion.event.users.domain.model.InactiveUser;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @ToString.Exclude
-    Set<ConfirmedUser> confirmedUser;
+    Set<ConfirmedUser> confirmedUsers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @ToString.Exclude
@@ -39,7 +40,7 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @ToString.Exclude
-    Set<InactiveUser> unknownUserName;
+    Set<InactiveUser> unknownUsers;
 
     public Event() {
         this.id = UUID.randomUUID();
@@ -52,4 +53,29 @@ public class Event {
         this.eventPlace = eventPlace;
         this.eventComments = eventComments;
     }
+
+    public void addConfirmedUser(ConfirmedUser confirmedUser) {
+        if (confirmedUsers == null) {
+            confirmedUsers = new LinkedHashSet<>();
+        }
+        confirmedUser.setEvent(this);
+        confirmedUsers.add(confirmedUser);
+    }
+
+    public void addDeclinedUser(DeclinedUser declinedUser) {
+        if (declinedUsers == null) {
+            declinedUsers = new LinkedHashSet<>();
+        }
+        declinedUser.setEvent(this);
+        declinedUsers.add(declinedUser);
+    }
+
+    public void addInactiveUser(InactiveUser inactiveUser) {
+        if (unknownUsers == null) {
+            unknownUsers = new LinkedHashSet<>();
+        }
+        inactiveUser.setEvent(this);
+        unknownUsers.add(inactiveUser);
+    }
+
 }

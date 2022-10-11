@@ -24,8 +24,7 @@ public class EventService {
     @Transactional(readOnly = true)
     public Event findEventById(UUID id) {
 
-        return eventRepository.findById(id)
-                .orElseThrow();
+        return eventRepository.getReferenceById(id);
     }
 
     @Transactional
@@ -43,8 +42,7 @@ public class EventService {
     @Transactional
     public Event updateEvent(UUID id, Event eventRequest) {
 
-        Event event = eventRepository.findById(id)
-                .orElseThrow();
+        Event event = eventRepository.getReferenceById(id);
         event.setEventName(eventRequest.getEventName());
         event.setEventDate(eventRequest.getEventDate());
         event.setEventPlace(eventRequest.getEventPlace());

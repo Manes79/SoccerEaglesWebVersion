@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.event.users.service.ConfirmedUserService;
 
+import java.util.UUID;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/events/confirmedusers")
@@ -18,9 +20,9 @@ public class ConfirmedUserWebViewController {
     private final ConfirmedUserService confirmedUserService;
 
     @GetMapping
-    public String viewAllConfirmedUsers(Model model) {
+    public String viewAllConfirmedUsers(UUID eventId, Model model) {
 
-        model.addAttribute("confirmedusers", confirmedUserService.findAllConfirmedUsers());
+        model.addAttribute("confirmedusers", confirmedUserService.findAllConfirmedUsersById(eventId));
 
         return "event/details";
     }
@@ -34,9 +36,9 @@ public class ConfirmedUserWebViewController {
     }
 
     @PostMapping
-    public String createConfirmedUser(ConfirmedUser confirmedUser) {
+    public String createConfirmedUser(UUID eventId, ConfirmedUser confirmedUser) {
 
-        confirmedUserService.createConfirmedUser(confirmedUser);
+        confirmedUserService.createConfirmedUser(eventId, confirmedUser);
 
         return "redirect:/events";
     }

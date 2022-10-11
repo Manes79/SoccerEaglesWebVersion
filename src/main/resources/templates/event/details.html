@@ -68,7 +68,7 @@
         </tr>
         </thead>
 
-        <tr th:each="confirmed : ${event.confirmedUser}">
+        <tr th:each="confirmed : ${event.confirmedUsers}">
 
             <td th:text="${confirmed.confirmedUserName}"></td>
             <td th:text="${confirmed.presenceComments}"></td>
@@ -125,7 +125,7 @@
         </tr>
         </thead>
 
-        <tr th:each="inactive : ${event.unknownUserName}">
+        <tr th:each="inactive : ${event.unknownUsers}">
 
             <td th:text="${inactive.unknownUserName}"></td>
             <td th:text="${inactive.presenceComments}"></td>
