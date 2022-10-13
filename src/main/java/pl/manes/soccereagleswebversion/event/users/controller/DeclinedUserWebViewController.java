@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.manes.soccereagleswebversion.event.users.domain.model.DeclinedUser;
 import pl.manes.soccereagleswebversion.event.users.service.DeclinedUserService;
 
-import java.util.UUID;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/events/declinedusers")
@@ -20,9 +18,9 @@ public class DeclinedUserWebViewController {
     private final DeclinedUserService declinedUserService;
 
     @GetMapping
-    public String viewAllDeclinedUsers(UUID eventId, Model model) {
+    public String viewAllDeclinedUsers(Model model) {
 
-        model.addAttribute("declinedusers", declinedUserService.findAllDeclinedUsersById(eventId));
+        model.addAttribute("declinedusers", declinedUserService.findAllDeclinedUsers());
 
         return "event/details";
     }
@@ -36,9 +34,9 @@ public class DeclinedUserWebViewController {
     }
 
     @PostMapping
-    public String createDeclinedUser(UUID eventId, DeclinedUser declinedUser) {
+    public String createDeclinedUser(DeclinedUser declinedUser) {
 
-        declinedUserService.createDeclinedUser(eventId, declinedUser);
+        declinedUserService.createDeclinedUser(declinedUser);
 
         return "redirect:/events";
     }

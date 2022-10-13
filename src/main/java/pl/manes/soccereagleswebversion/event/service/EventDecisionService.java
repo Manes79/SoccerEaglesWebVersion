@@ -17,15 +17,12 @@ public class EventDecisionService {
 
     @Transactional(readOnly = true)
     public List<EventDecision> findAllEventsDecision() {
-
         return eventDecisionRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public EventDecision findEventDecisionById(UUID id) {
-
-        return eventDecisionRepository.findById(id)
-                .orElseThrow();
+        return eventDecisionRepository.getReferenceById(id);
     }
 
     @Transactional
@@ -33,22 +30,18 @@ public class EventDecisionService {
         EventDecision eventDecision = new EventDecision();
         eventDecision.setEventDecision(eventDecisionRequest.getEventDecision());
         eventDecision.setPresenceComments(eventDecisionRequest.getPresenceComments());
-
         return eventDecisionRepository.save(eventDecision);
     }
 
     @Transactional
     public EventDecision updateEventDecision(UUID id, EventDecision eventDecisionRequest) {
-        EventDecision eventDecision = eventDecisionRepository.findById(id)
-                .orElseThrow();
+        EventDecision eventDecision = eventDecisionRepository.getReferenceById(id);
         eventDecision.setEventDecision(eventDecisionRequest.getEventDecision());
-
         return eventDecisionRepository.save(eventDecision);
     }
 
     @Transactional
     public void deleteEventDecision(UUID id) {
-
         eventDecisionRepository.deleteById(id);
     }
 }

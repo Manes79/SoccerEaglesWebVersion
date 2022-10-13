@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.manes.soccereagleswebversion.event.users.domain.model.InactiveUser;
 import pl.manes.soccereagleswebversion.event.users.service.InactiveUserService;
 
-import java.util.UUID;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/events/inactiveusers")
@@ -20,9 +18,9 @@ public class InactiveUserWebViewController {
     private final InactiveUserService inactiveUserService;
 
     @GetMapping
-    public String viewAllInactiveUsers(UUID eventId, Model model) {
+    public String viewAllInactiveUsers(Model model) {
 
-        model.addAttribute("inactiveusers", inactiveUserService.findAllInactiveUsersById(eventId));
+        model.addAttribute("inactiveusers", inactiveUserService.findAllInactiveUsers());
 
         return "event/details";
     }
@@ -36,9 +34,9 @@ public class InactiveUserWebViewController {
     }
 
     @PostMapping
-    public String createInactiveUser(UUID eventId, InactiveUser inactiveUser) {
+    public String createInactiveUser(InactiveUser inactiveUser) {
 
-        inactiveUserService.createInactiveUser(eventId, inactiveUser);
+        inactiveUserService.createInactiveUser(inactiveUser);
 
         return "redirect:/events";
     }

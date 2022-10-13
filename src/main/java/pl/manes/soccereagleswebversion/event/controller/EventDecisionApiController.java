@@ -18,34 +18,29 @@ public class EventDecisionApiController {
 
     @GetMapping
     List<EventDecision> displayAllEventsDecision() {
-
         return eventDecisionService.findAllEventsDecision();
     }
 
     @GetMapping("{id}")
     EventDecision displayEventDecisionById(@PathVariable UUID id) {
-
         return eventDecisionService.findEventDecisionById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     EventDecision displayCreateEventDecision(@RequestBody EventDecision eventDecision) {
-
         return eventDecisionService.createEventDecision(eventDecision);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     EventDecision displayUpdateEventDecision(@PathVariable UUID id, @RequestBody EventDecision eventDecision) {
-
         return eventDecisionService.updateEventDecision(id, eventDecision);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteEventDecision(@PathVariable UUID id) {
-
         eventDecisionService.deleteEventDecision(id);
     }
 
