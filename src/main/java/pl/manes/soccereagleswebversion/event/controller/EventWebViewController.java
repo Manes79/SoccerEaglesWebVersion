@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.manes.soccereagleswebversion.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.event.service.EventService;
-import pl.manes.soccereagleswebversion.event.users.service.ConfirmedUserService;
-import pl.manes.soccereagleswebversion.event.users.service.DeclinedUserService;
-import pl.manes.soccereagleswebversion.event.users.service.InactiveUserService;
 
 import java.util.UUID;
 
@@ -19,12 +16,6 @@ import java.util.UUID;
 public class EventWebViewController {
 
     private final EventService eventService;
-
-    private final ConfirmedUserService confirmedUserService;
-
-    private final DeclinedUserService declinedUserService;
-
-    private final InactiveUserService inactiveUserService;
 
     @GetMapping
     public String viewAllEvents(Model model) {
@@ -37,10 +28,8 @@ public class EventWebViewController {
     @GetMapping("{id}/details")
     public String singleEventView(@PathVariable UUID id, Model model) {
 
-        model.addAttribute("event", eventService.findEventById(id));
-        model.addAttribute("confirmed", confirmedUserService.findConfirmedUserById(id));
-        model.addAttribute("declined", declinedUserService.findDeclinedUserById(id));
-        model.addAttribute("inactive", inactiveUserService.findInactiveUserById(id));
+        Event event = eventService.findEventById(id);
+        model.addAttribute("event", event);
 
         return "event/details";
     }
