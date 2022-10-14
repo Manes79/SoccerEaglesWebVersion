@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.manes.soccereagleswebversion.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.event.users.service.ConfirmedUserService;
 
@@ -31,7 +30,7 @@ public class ConfirmedUserWebViewController {
     @GetMapping("{id}")
     public String singleConfirmedUserView(@PathVariable UUID id, Model model) {
 
-        ConfirmedUser confirmedUser= confirmedUserService.findConfirmedUserById(id);
+        ConfirmedUser confirmedUser = confirmedUserService.findConfirmedUserById(id);
         model.addAttribute("confirmed", confirmedUser);
 
         return "event/details";
