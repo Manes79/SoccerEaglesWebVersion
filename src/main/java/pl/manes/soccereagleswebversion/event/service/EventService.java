@@ -56,4 +56,9 @@ public class EventService {
 
         eventRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<Event> findAllEventsByEventCategoryId(UUID id) {
+        return eventRepository.findAllEventsByEventCategoryId(id);
+    }
 }

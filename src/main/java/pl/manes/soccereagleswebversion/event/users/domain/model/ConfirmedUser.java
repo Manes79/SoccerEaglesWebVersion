@@ -6,6 +6,7 @@ import lombok.ToString;
 import pl.manes.soccereagleswebversion.event.domain.model.Event;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class ConfirmedUser {
+public class ConfirmedUser implements Serializable {
 
     @Id
     private UUID id;

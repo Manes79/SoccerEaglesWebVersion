@@ -9,6 +9,7 @@ import pl.manes.soccereagleswebversion.event.users.domain.model.InactiveUser;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class Event {
+public class Event implements Serializable {
 
     @Id
     private UUID id;
