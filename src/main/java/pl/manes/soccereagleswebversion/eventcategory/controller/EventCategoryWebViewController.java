@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.manes.soccereagleswebversion.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.event.service.EventService;
@@ -20,13 +21,37 @@ import java.util.UUID;
 public class EventCategoryWebViewController {
 
     private final EventCategoryService eventCategoryService;
-
     private final EventService eventService;
+
+    @GetMapping("create")
+    public String addCreateEventCategoryView(Model model) {
+
+        model.addAttribute("category", new EventCategory());
+
+        return "event/eventcategory/create";
+    }
+
+    @PostMapping
+    public String createEventCategory(EventCategory eventCategory) {
+
+        eventCategoryService.createCategory(eventCategory);
+
+        return "redirect:/categories";
+    }
+
+    @GetMapping("{id}/delete")
+    public String deleteEventCategoryView(@PathVariable UUID id) {
+
+        eventCategoryService.deleteCategory(id);
+
+        return "redirect:/categories";
+    }
 
     @GetMapping
     public String viewAllEventCategories(Model model) {
 
         model.addAttribute("categories", eventCategoryService.findAllCategories());
+        model.addAttribute("events", eventService.findAllEvents());
 
         return "event/eventcategory/index";
     }
@@ -39,7 +64,7 @@ public class EventCategoryWebViewController {
 
         model.addAttribute("category", eventCategory);
         model.addAttribute("event", events);
-        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
+//        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
 
         return "event/eventcategory/single";
     }

@@ -14,7 +14,7 @@
 <div class="container mt-3">
 
     <div class="d-grid">
-        <a href="/events/create" class="btn btn-success"><h2>STWÓRZ NOWE WYDARZENIE</h2></a>
+        <a href="/categories/create" class="btn btn-success"><h2>STWÓRZ NOWĄ KATEGORIĘ</h2></a>
     </div>
 
     <div class="container mt-3">
@@ -33,11 +33,60 @@
                        th:href="@{'/categories/'+${category.id} + '/single'}">
                         <i class="fas fa-folder"></i>WSZYSTKIE WYDARZENIA Z DANEJ KATEGORII</a>
                 </td>
+
+
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       th:href="@{'/categories/'+${category.id} + '/delete'}">
+                        <i class="fas fa-folder"></i>Usuń kategorię</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-grid">
+        <a href="/events/create" class="btn btn-success"><h2>STWÓRZ NOWE WYDARZENIE</h2></a>
+    </div>
+
+
+    <div class="container mt-3">
+        <h5 class="message">NAJBLIŻSZE WYDARZENIA</h5>
+
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th class="event">Rodzaj wydarzenia</th>
+                <th class="event">Data wydarzenia</th>
+                <th class="event">Miejsce wydarzenia</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="event : ${events}">
+
+                <td th:text="${event.eventName}"></td>
+                <td th:text="${event.eventDate}"></td>
+                <td th:text="${event.eventPlace}"></td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       th:href="@{'/events/'+${event.id} + '/edit'}">
+                        <i class="fas fa-folder"></i>Edytuj Wydarzenie</a>
+                </td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       th:href="@{'/events/'+${event.id} + '/delete'}">
+                        <i class="fas fa-folder"></i>Usuń wydarzenie</a>
+                </td>
+
             </tr>
             </tbody>
         </table>
 
     </div>
+
 </div>
 </body>
 </html>
