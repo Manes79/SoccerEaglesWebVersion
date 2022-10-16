@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.manes.soccereagleswebversion.event.domain.model.Event;
-import pl.manes.soccereagleswebversion.event.service.EventService;
+import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
+import pl.manes.soccereagleswebversion.eventcategory.event.service.EventService;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.service.EventCategoryService;
 
@@ -28,7 +28,7 @@ public class EventCategoryWebViewController {
 
         model.addAttribute("category", new EventCategory());
 
-        return "event/eventcategory/create";
+        return "eventcategory/create";
     }
 
     @PostMapping
@@ -53,19 +53,19 @@ public class EventCategoryWebViewController {
         model.addAttribute("categories", eventCategoryService.findAllCategories());
         model.addAttribute("events", eventService.findAllEvents());
 
-        return "event/eventcategory/index";
+        return "eventcategory/index";
     }
 
     @GetMapping("{id}/single")
     public String singleWebViewCategory(@PathVariable UUID id, Model model) {
 
         EventCategory eventCategory = eventCategoryService.findCategoryById(id);
-        List<Event> events = eventService.findAllEventsByEventCategoryId(id);
+        List<Event> events = eventService.findAllEvents();
 
         model.addAttribute("category", eventCategory);
         model.addAttribute("event", events);
-//        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
+        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
 
-        return "event/eventcategory/single";
+        return "eventcategory/single";
     }
 }
