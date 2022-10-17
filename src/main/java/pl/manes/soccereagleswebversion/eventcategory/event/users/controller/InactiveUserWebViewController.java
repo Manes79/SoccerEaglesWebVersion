@@ -22,7 +22,7 @@ public class InactiveUserWebViewController {
 
         model.addAttribute("inactiveusers", inactiveUserService.findAllInactiveUsers());
 
-        return "event/details";
+        return "eventcategory/event/details";
     }
 
     @GetMapping("{id}/inactive")
@@ -30,7 +30,7 @@ public class InactiveUserWebViewController {
 
         model.addAttribute("inactive", new InactiveUser());
 
-        return "event/users/inactive";
+        return "eventcategory/event/users/inactive";
     }
 
     @PostMapping
@@ -38,7 +38,7 @@ public class InactiveUserWebViewController {
 
         inactiveUserService.createInactiveUser(inactiveUser);
 
-        return "redirect:/events";
+        return "redirect:/categories";
     }
 
 }

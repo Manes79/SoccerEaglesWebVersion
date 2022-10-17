@@ -49,7 +49,7 @@ public class ConfirmedUserWebViewController {
 
         confirmedUserService.createConfirmedUser(confirmedUser);
 
-        return "redirect:/events";
+        return "redirect:/categories";
     }
 
 }

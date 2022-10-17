@@ -22,7 +22,7 @@ public class DeclinedUserWebViewController {
 
         model.addAttribute("declinedusers", declinedUserService.findAllDeclinedUsers());
 
-        return "event/details";
+        return "eventcategory/event/details";
     }
 
     @GetMapping("{id}/declined")
@@ -30,7 +30,7 @@ public class DeclinedUserWebViewController {
 
         model.addAttribute("declined", new DeclinedUser());
 
-        return "event/users/declined";
+        return "eventcategory/event/users/declined";
     }
 
     @PostMapping
@@ -38,6 +38,6 @@ public class DeclinedUserWebViewController {
 
         declinedUserService.createDeclinedUser(declinedUser);
 
-        return "redirect:/events";
+        return "redirect:/categories";
     }
 }

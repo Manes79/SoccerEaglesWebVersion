@@ -11,7 +11,7 @@
 
 <body class="d-flex h-100 text-center text-bg-dark">
 
-<form class="form-control float-right" method="post" th:object="${event}">
+<form class="form-control float-right btn btn-dark" method="post" th:object="${event}">
 
     <div class="mb-3">
         <label for="eventName">Rodzaj wydarzenia</label>
@@ -37,7 +37,7 @@
     <input th:field="*{id}" type="hidden"/>
 
     <label>
-        <button type="submit" class="btn btn-primary">Aktualizuj Wydarzenie</button>
+        <button type="submit" class="btn btn-danger active">Aktualizuj Wydarzenie</button>
     </label>
 
 </form>

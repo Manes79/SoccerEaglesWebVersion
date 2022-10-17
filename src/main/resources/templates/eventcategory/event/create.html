@@ -11,7 +11,7 @@
 
 <body class="d-flex h-100 text-center text-bg-dark">
 
-<form class="form-control float-right" action="/events" method="post" th:object="${event}">
+<form class="form-control float-right btn btn-dark" action="/events" method="post" th:object="${event}">
 
     <div class="mb-3">
         <label for="formGroupExampleInput" class="form-label">Rodzaj wydarzenia</label>
@@ -38,7 +38,7 @@
     </div>
 
     <label>
-        <button type="submit" class="btn btn-primary">Stwórz Wydarzenie</button>
+        <button type="submit" class="btn btn-danger active">Stwórz Wydarzenie</button>
     </label>
 
 </form>
