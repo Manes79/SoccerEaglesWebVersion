@@ -1,12 +1,11 @@
 insert into categories (id, category)
-values  (gen_random_uuid(), 'Piłka nożna'),
-        (gen_random_uuid(), 'Koszykówka'),
-        (gen_random_uuid(), 'Siatkówka'),
-        (gen_random_uuid(), 'Tenis'),
-        (gen_random_uuid(), 'Rugby'),
-        (gen_random_uuid(), 'Biegi'),
-        (gen_random_uuid(), 'Hokej');
-
+values (gen_random_uuid(), 'Piłka nożna'),
+       (gen_random_uuid(), 'Koszykówka'),
+       (gen_random_uuid(), 'Siatkówka'),
+       (gen_random_uuid(), 'Tenis'),
+       (gen_random_uuid(), 'Rugby'),
+       (gen_random_uuid(), 'Biegi'),
+       (gen_random_uuid(), 'Hokej');
 
 
 -- select * from events;

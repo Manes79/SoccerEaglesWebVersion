@@ -22,7 +22,7 @@ public class EventWebViewController {
 
         model.addAttribute("events", eventService.findAllEvents());
 
-        return "eventcategory/event/index";
+        return "eventcategory/single";
     }
 
     @GetMapping("{id}/details")

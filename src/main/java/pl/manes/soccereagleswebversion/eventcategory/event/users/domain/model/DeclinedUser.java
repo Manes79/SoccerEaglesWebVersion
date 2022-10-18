@@ -7,25 +7,29 @@ import lombok.ToString;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "declinedusers")
+@Table(name = "declinedusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"declined_user_name", "event_id"})})
 @Getter
 @Setter
 @ToString
-public class DeclinedUser {
+public class DeclinedUser implements Serializable {
 
     @Id
     private UUID id;
 
+    @Column(name = "declined_user_name")
     private String declinedUserName;
 
+    @Column(name = "presence_comments")
     private String presenceComments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @ToString.Exclude
     @JsonBackReference
+    @JoinColumn(name = "event_id")
     private Event event;
 
     public DeclinedUser() {

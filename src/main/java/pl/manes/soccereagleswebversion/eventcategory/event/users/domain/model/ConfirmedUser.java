@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "confirmedusers")
+@Table(name = "confirmedusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"confirmed_user_name", "event_id"})})
 @Getter
 @Setter
 @ToString
@@ -19,14 +19,15 @@ public class ConfirmedUser implements Serializable {
 
     @Id
     private UUID id;
-
+    @Column(name = "confirmed_user_name")
     private String confirmedUserName;
-
+    @Column(name = "presence_comments")
     private String presenceComments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @ToString.Exclude
     @JsonBackReference
+    @JoinColumn(name = "event_id")
     private Event event;
 
     public ConfirmedUser() {

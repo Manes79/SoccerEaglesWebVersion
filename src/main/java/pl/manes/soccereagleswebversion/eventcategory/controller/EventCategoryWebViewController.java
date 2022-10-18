@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.eventcategory.event.service.EventService;
-import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.service.EventCategoryService;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class EventCategoryWebViewController {
     public String singleWebViewCategory(@PathVariable UUID id, Model model) {
 
         EventCategory eventCategory = eventCategoryService.findCategoryById(id);
-        List<Event> events = eventService.findAllEvents();
+        List<Event> events = eventService.findAllEventsByEventCategoryId(id);
 
         model.addAttribute("category", eventCategory);
         model.addAttribute("event", events);

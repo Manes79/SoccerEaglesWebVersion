@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "events")
+@Table(name = "events", uniqueConstraints = {@UniqueConstraint(columnNames = {"event_name", "event_category_id"})})
 @Getter
 @Setter
 @ToString
@@ -24,31 +24,41 @@ public class Event implements Serializable {
     @Id
     private UUID id;
 
+    @Column(name = "event_name")
     private String eventName;
-
+    @Column(name = "event_date")
     private String eventDate;
-
+    @Column(name = "event_place")
     private String eventPlace;
-
+    @Column(name = "event_comments")
     private String eventComments;
 
+
     @ManyToOne
+    @JoinColumn(name = "event_category_id")
     private EventCategory eventCategory;
 
-    @OneToMany(cascade = CascadeType.ALL,  mappedBy = "event", orphanRemoval = true)
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "event_id")
     @ToString.Exclude
     @JsonManagedReference
     private List<ConfirmedUser> confirmedUsers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
-    @ToString.Exclude
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "event_id")
     @JsonManagedReference
+    @ToString.Exclude
     private List<DeclinedUser> declinedUsers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
-    @ToString.Exclude
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "event_id")
     @JsonManagedReference
+    @ToString.Exclude
     private List<InactiveUser> inactiveUsers;
+
 
     public Event() {
         this.id = UUID.randomUUID();
