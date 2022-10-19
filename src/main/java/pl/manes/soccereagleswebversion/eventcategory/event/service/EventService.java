@@ -3,6 +3,7 @@ package pl.manes.soccereagleswebversion.eventcategory.event.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.repository.EventRepository;
 
@@ -61,4 +62,5 @@ public class EventService {
     public List<Event> findAllEventsByEventCategoryId(UUID id) {
         return eventRepository.findAllEventsByEventCategoryId(id);
     }
+
 }

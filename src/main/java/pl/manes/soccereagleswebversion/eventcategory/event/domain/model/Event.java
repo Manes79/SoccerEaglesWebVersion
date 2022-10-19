@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.DeclinedUser;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.InactiveUser;
-import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "events", uniqueConstraints = {@UniqueConstraint(columnNames = {"event_name", "event_category_id"})})
 @Getter
 @Setter
 @ToString
+@Table(name = "events", uniqueConstraints = {@UniqueConstraint(columnNames = {"event_name", "event_category_id"})})
 public class Event implements Serializable {
 
     @Id
@@ -59,16 +59,20 @@ public class Event implements Serializable {
     @ToString.Exclude
     private List<InactiveUser> inactiveUsers;
 
-
     public Event() {
         this.id = UUID.randomUUID();
     }
 
-    public Event(String eventName, String eventDate, String eventPlace, String eventComments) {
+    public Event(String eventName, String eventDate, String eventPlace, String eventComments, EventCategory eventCategory, List<ConfirmedUser> confirmedUsers, List<DeclinedUser> declinedUsers, List<InactiveUser> inactiveUsers) {
         this();
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.eventPlace = eventPlace;
         this.eventComments = eventComments;
+        this.eventCategory = eventCategory;
+        this.confirmedUsers = confirmedUsers;
+        this.declinedUsers = declinedUsers;
+        this.inactiveUsers = inactiveUsers;
     }
+
 }

@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = {"category"})})
 @Getter
 @Setter
 @ToString
+@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = {"category"})})
 public class EventCategory implements Serializable {
 
     @Id
@@ -34,9 +34,9 @@ public class EventCategory implements Serializable {
         this.id = UUID.randomUUID();
     }
 
-    public EventCategory(String category) {
+    public EventCategory(String category, List<Event> events) {
         this();
         this.category = category;
+        this.events = events;
     }
-
 }

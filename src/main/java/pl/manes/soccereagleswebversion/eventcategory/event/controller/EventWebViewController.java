@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.eventcategory.event.service.EventService;
+import pl.manes.soccereagleswebversion.eventcategory.service.EventCategoryService;
 
 import java.util.UUID;
 
@@ -16,6 +18,8 @@ import java.util.UUID;
 public class EventWebViewController {
 
     private final EventService eventService;
+
+    private final EventCategoryService eventCategoryService;
 
     @GetMapping
     public String viewAllEvents(Model model) {
@@ -28,8 +32,11 @@ public class EventWebViewController {
     @GetMapping("{id}/details")
     public String singleEventView(@PathVariable UUID id, Model model) {
 
+        EventCategory eventCategory = eventCategoryService.findEventCategoryById(id);
         Event event = eventService.findEventById(id);
+
         model.addAttribute("event", event);
+        model.addAttribute("category", eventCategory);
 
         return "eventcategory/event/details";
     }

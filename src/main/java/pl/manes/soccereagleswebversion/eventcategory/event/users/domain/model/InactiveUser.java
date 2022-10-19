@@ -11,10 +11,10 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "inactiveusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"unknown_user_name", "event_id"})})
 @Getter
 @Setter
 @ToString
+@Table(name = "inactiveusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"unknown_user_name", "event_id"})})
 public class InactiveUser implements Serializable {
 
     @Id
@@ -32,13 +32,16 @@ public class InactiveUser implements Serializable {
     @JoinColumn(name = "event_id")
     private Event event;
 
+
     public InactiveUser() {
         this.id = UUID.randomUUID();
     }
 
-    public InactiveUser(String unknownUserName, String presenceComments) {
+    public InactiveUser(String unknownUserName, String presenceComments, Event event) {
         this();
         this.unknownUserName = unknownUserName;
         this.presenceComments = presenceComments;
+        this.event = event;
     }
+
 }

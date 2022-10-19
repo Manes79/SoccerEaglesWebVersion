@@ -12,5 +12,4 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
 
     List<Event> findAllEventsByEventCategoryId(UUID id);
 
-
 }
