@@ -45,8 +45,8 @@ public class EventCategoryService {
         eventCategoryRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
-    public EventCategory findEventCategoryById(UUID id) {
-        return eventCategoryRepository.findEventCategoryById(id);
-    }
+//    @Transactional(readOnly = true)
+//    public List<EventCategory> findAllByCategoryId(UUID id) {
+//        return eventCategoryRepository.findAllByCategoryId(id);
+//    }
 }

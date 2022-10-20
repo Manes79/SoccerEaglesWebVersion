@@ -47,11 +47,11 @@ public class EventCategoryWebViewController {
         return "redirect:/categories";
     }
 
-    @GetMapping
-    public String viewAllEventCategories(Model model) {
+    @GetMapping("{id}")
+    public String viewAllEventCategories(@PathVariable UUID id, Model model) {
 
         model.addAttribute("categories", eventCategoryService.findAllCategories());
-        model.addAttribute("events", eventService.findAllEvents());
+        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
 
         return "eventcategory/index";
     }

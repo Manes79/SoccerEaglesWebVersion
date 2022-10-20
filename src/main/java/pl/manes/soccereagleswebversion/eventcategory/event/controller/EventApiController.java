@@ -11,36 +11,36 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/events")
+@RequestMapping("api/v1/categories{category-id}/events")
 public class EventApiController {
 
     private final EventService eventService;
 
     @GetMapping
-    List<Event> displayAllEvents() {
-        return eventService.findAllEvents();
+    List<Event> getAllEventsByEventCategoryId(@PathVariable("category-id") UUID categoryId) {
+        return eventService.findAllEventsByEventCategoryId(categoryId);
     }
 
-    @GetMapping("{id}")
-    Event displayEventById(@PathVariable UUID id) {
-        return eventService.findEventById(id);
+    @GetMapping("{event-id}")
+    Event getEventById(@PathVariable("category-id") UUID categoryId, @PathVariable("event-id") UUID eventId) {
+        return eventService.findEventById(eventId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Event displayCreateEvent(@RequestBody Event event) {
-        return eventService.createEvent(event);
+    Event displayCreateEvent(@PathVariable("category-id") UUID categoryId, @RequestBody Event event) {
+        return eventService.createEvent(categoryId, event);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{event-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    Event displayUpdateEvent(@PathVariable UUID id, @RequestBody Event event) {
-        return eventService.updateEvent(id, event);
+    Event displayUpdateEvent(@PathVariable("category-id") UUID categoryId, @PathVariable("event-id") UUID eventId, @RequestBody Event event) {
+        return eventService.updateEvent(eventId, event);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{event-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEvent(@PathVariable UUID id) {
-        eventService.deleteEvent(id);
+    void deleteEvent(@PathVariable("event-id") UUID eventId, @PathVariable("category-id") String parameter) {
+        eventService.deleteEvent(eventId);
     }
 }

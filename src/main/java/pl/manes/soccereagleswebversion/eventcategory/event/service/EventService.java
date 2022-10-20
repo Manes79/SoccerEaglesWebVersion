@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
+import pl.manes.soccereagleswebversion.eventcategory.domain.repository.EventCategoryRepository;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.repository.EventRepository;
 
@@ -16,10 +17,11 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    @Transactional(readOnly = true)
-    public List<Event> findAllEvents() {
+    private final EventCategoryRepository eventCategoryRepository;
 
-        return eventRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<Event> findAllEventsByEventCategoryId(UUID id) {
+        return eventRepository.findEventByEventCategoryId(id);
     }
 
     @Transactional(readOnly = true)
@@ -29,7 +31,7 @@ public class EventService {
     }
 
     @Transactional
-    public Event createEvent(Event eventRequest) {
+    public Event createEvent(UUID categoryId, Event eventRequest) {
 
         Event event = new Event();
         event.setEventName(eventRequest.getEventName());
@@ -37,7 +39,13 @@ public class EventService {
         event.setEventPlace(eventRequest.getEventPlace());
         event.setEventComments(eventRequest.getEventComments());
 
-        return eventRepository.save(event);
+        EventCategory eventCategory = eventCategoryRepository.getReferenceById(categoryId);
+        eventCategory.addEvent(event);
+
+        eventRepository.save(event);
+        eventCategoryRepository.save(eventCategory);
+
+        return event;
     }
 
     @Transactional
@@ -56,11 +64,6 @@ public class EventService {
     public void deleteEvent(UUID id) {
 
         eventRepository.deleteById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Event> findAllEventsByEventCategoryId(UUID id) {
-        return eventRepository.findAllEventsByEventCategoryId(id);
     }
 
 }

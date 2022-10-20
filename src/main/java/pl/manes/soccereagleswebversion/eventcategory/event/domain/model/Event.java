@@ -11,7 +11,7 @@ import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.In
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -43,27 +43,27 @@ public class Event implements Serializable {
     @JoinColumn(name = "event_id")
     @ToString.Exclude
     @JsonManagedReference
-    private List<ConfirmedUser> confirmedUsers;
+    private Set<ConfirmedUser> confirmedUsers;
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
     @JsonManagedReference
     @ToString.Exclude
-    private List<DeclinedUser> declinedUsers;
+    private Set<DeclinedUser> declinedUsers;
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
     @JsonManagedReference
     @ToString.Exclude
-    private List<InactiveUser> inactiveUsers;
+    private Set<InactiveUser> inactiveUsers;
 
     public Event() {
         this.id = UUID.randomUUID();
     }
 
-    public Event(String eventName, String eventDate, String eventPlace, String eventComments, EventCategory eventCategory, List<ConfirmedUser> confirmedUsers, List<DeclinedUser> declinedUsers, List<InactiveUser> inactiveUsers) {
+    public Event(String eventName, String eventDate, String eventPlace, String eventComments, EventCategory eventCategory, Set<ConfirmedUser> confirmedUsers, Set<DeclinedUser> declinedUsers, Set<InactiveUser> inactiveUsers) {
         this();
         this.eventName = eventName;
         this.eventDate = eventDate;
@@ -74,5 +74,4 @@ public class Event implements Serializable {
         this.declinedUsers = declinedUsers;
         this.inactiveUsers = inactiveUsers;
     }
-
 }

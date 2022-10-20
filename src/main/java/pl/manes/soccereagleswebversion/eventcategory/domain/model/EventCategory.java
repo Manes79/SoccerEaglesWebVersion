@@ -8,8 +8,7 @@ import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -28,15 +27,25 @@ public class EventCategory implements Serializable {
     @JoinColumn(name = "event_category_id")
     @ToString.Exclude
     @JsonManagedReference
-    private List<Event> events;
+    private Set<Event> events;
 
     public EventCategory() {
         this.id = UUID.randomUUID();
     }
 
-    public EventCategory(String category, List<Event> events) {
+    public EventCategory(String category, Set<Event> events) {
         this();
         this.category = category;
         this.events = events;
     }
+
+    public void addEvent(Event event) {
+        if (events == null) {
+            events = new LinkedHashSet<>();
+        }
+
+        event.setEventCategory(this);
+        events.add(event);
+    }
+
 }

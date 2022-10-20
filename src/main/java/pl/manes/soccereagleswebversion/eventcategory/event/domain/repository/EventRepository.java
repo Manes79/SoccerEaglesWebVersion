@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface EventRepository extends JpaRepository<Event, UUID> {
 
-    List<Event> findAllEventsByEventCategoryId(UUID id);
+    List<Event> findEventByEventCategoryId(UUID categoryId);
 
 }

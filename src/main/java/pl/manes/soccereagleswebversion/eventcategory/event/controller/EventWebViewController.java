@@ -21,10 +21,10 @@ public class EventWebViewController {
 
     private final EventCategoryService eventCategoryService;
 
-    @GetMapping
-    public String viewAllEvents(Model model) {
+    @GetMapping("{id}")
+    public String viewAllEvents(@PathVariable UUID id, Model model) {
 
-        model.addAttribute("events", eventService.findAllEvents());
+        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
 
         return "eventcategory/single";
     }
@@ -32,11 +32,9 @@ public class EventWebViewController {
     @GetMapping("{id}/details")
     public String singleEventView(@PathVariable UUID id, Model model) {
 
-        EventCategory eventCategory = eventCategoryService.findEventCategoryById(id);
         Event event = eventService.findEventById(id);
 
         model.addAttribute("event", event);
-        model.addAttribute("category", eventCategory);
 
         return "eventcategory/event/details";
     }
@@ -50,9 +48,9 @@ public class EventWebViewController {
     }
 
     @PostMapping
-    public String createEvent(Event event) {
+    public String createEvent(@RequestBody Event event, String id) {
 
-        eventService.createEvent(event);
+        eventService.createEvent(UUID.fromString(id), event);
 
         return "redirect:/categories";
     }
