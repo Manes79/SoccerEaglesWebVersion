@@ -11,36 +11,36 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/categories{category-id}/events")
+@RequestMapping("api/v1/categories{eventCategory-id}/event")
 public class EventApiController {
 
     private final EventService eventService;
 
     @GetMapping
-    List<Event> getAllEventsByEventCategoryId(@PathVariable("category-id") UUID categoryId) {
-        return eventService.findAllEventsByEventCategoryId(categoryId);
+    List<Event> getEvents(@PathVariable("eventCategory-id") UUID eventCategoryId) {
+        return eventService.getEvents(eventCategoryId);
     }
 
     @GetMapping("{event-id}")
-    Event getEventById(@PathVariable("category-id") UUID categoryId, @PathVariable("event-id") UUID eventId) {
-        return eventService.findEventById(eventId);
+    Event getEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @PathVariable("event-id") UUID eventId) {
+        return eventService.getEvent(eventId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Event displayCreateEvent(@PathVariable("category-id") UUID categoryId, @RequestBody Event event) {
-        return eventService.createEvent(categoryId, event);
+    Event createEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @RequestBody Event event) {
+        return eventService.createEvent(eventCategoryId, event);
     }
 
     @PutMapping("{event-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    Event displayUpdateEvent(@PathVariable("category-id") UUID categoryId, @PathVariable("event-id") UUID eventId, @RequestBody Event event) {
+    Event updateEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @PathVariable("event-id") UUID eventId, @RequestBody Event event) {
         return eventService.updateEvent(eventId, event);
     }
 
     @DeleteMapping("{event-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEvent(@PathVariable("event-id") UUID eventId, @PathVariable("category-id") String parameter) {
+    void deleteEvent(@PathVariable("event-id") UUID eventId, @PathVariable("eventCategory-id") String parameter) {
         eventService.deleteEvent(eventId);
     }
 }

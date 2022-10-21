@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.domain.repository.EventCategoryRepository;
-import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
 import java.util.List;
 import java.util.UUID;
@@ -45,8 +44,9 @@ public class EventCategoryService {
         eventCategoryRepository.deleteById(id);
     }
 
-//    @Transactional(readOnly = true)
-//    public List<EventCategory> findAllByCategoryId(UUID id) {
-//        return eventCategoryRepository.findAllByCategoryId(id);
-//    }
+    @Transactional(readOnly = true)
+    public List<EventCategory> findEventByCategory(UUID id) {
+        return eventCategoryRepository.findAllByCategory(id);
+    }
+
 }

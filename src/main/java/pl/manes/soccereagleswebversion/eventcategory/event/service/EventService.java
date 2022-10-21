@@ -16,22 +16,20 @@ import java.util.UUID;
 public class EventService {
 
     private final EventRepository eventRepository;
-
     private final EventCategoryRepository eventCategoryRepository;
 
     @Transactional(readOnly = true)
-    public List<Event> findAllEventsByEventCategoryId(UUID id) {
-        return eventRepository.findEventByEventCategoryId(id);
+    public List<Event> getEvents (UUID eventCategoryId) {
+        return eventRepository.findByEventCategoryId(eventCategoryId);
     }
 
     @Transactional(readOnly = true)
-    public Event findEventById(UUID id) {
-
+    public Event getEvent(UUID id) {
         return eventRepository.getReferenceById(id);
     }
 
     @Transactional
-    public Event createEvent(UUID categoryId, Event eventRequest) {
+    public Event createEvent(UUID eventCategoryId, Event eventRequest) {
 
         Event event = new Event();
         event.setEventName(eventRequest.getEventName());
@@ -39,7 +37,7 @@ public class EventService {
         event.setEventPlace(eventRequest.getEventPlace());
         event.setEventComments(eventRequest.getEventComments());
 
-        EventCategory eventCategory = eventCategoryRepository.getReferenceById(categoryId);
+        EventCategory eventCategory = eventCategoryRepository.getReferenceById(eventCategoryId);
         eventCategory.addEvent(event);
 
         eventRepository.save(event);
@@ -49,9 +47,9 @@ public class EventService {
     }
 
     @Transactional
-    public Event updateEvent(UUID id, Event eventRequest) {
+    public Event updateEvent(UUID eventId, Event eventRequest) {
 
-        Event event = eventRepository.getReferenceById(id);
+        Event event = eventRepository.getReferenceById(eventId);
         event.setEventName(eventRequest.getEventName());
         event.setEventDate(eventRequest.getEventDate());
         event.setEventPlace(eventRequest.getEventPlace());
@@ -61,9 +59,8 @@ public class EventService {
     }
 
     @Transactional
-    public void deleteEvent(UUID id) {
-
-        eventRepository.deleteById(id);
+    public void deleteEvent(UUID eventId) {
+        eventRepository.deleteById(eventId);
     }
 
 }

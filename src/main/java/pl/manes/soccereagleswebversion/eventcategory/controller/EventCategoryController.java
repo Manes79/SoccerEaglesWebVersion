@@ -22,7 +22,7 @@ public class EventCategoryController {
     }
 
     @GetMapping("{id}")
-    EventCategory displayCategoryById(@PathVariable UUID id) {
+    EventCategory getCategoryById(@PathVariable UUID id) {
         return eventCategoryService.findCategoryById(id);
     }
 
