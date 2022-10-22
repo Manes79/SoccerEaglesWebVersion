@@ -1,51 +1,41 @@
 package pl.manes.soccereagleswebversion.eventcategory.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = {"category"})})
-public class EventCategory implements Serializable {
+@Table(name = "categories")
+public class EventCategory {
 
     @Id
     private UUID id;
 
-    @Column(name = "category")
     private String category;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_category_id")
-    @ToString.Exclude
-    @JsonManagedReference
-    private Set<Event> events;
 
     public EventCategory() {
         this.id = UUID.randomUUID();
     }
 
-    public EventCategory(String category, Set<Event> events) {
-        this();
+    public EventCategory(String category) {
+        this.id = UUID.randomUUID();
         this.category = category;
-        this.events = events;
     }
 
-    public void addEvent(Event event) {
-        if (events == null) {
-            events = new LinkedHashSet<>();
-        }
-
-        event.setEventCategory(this);
-        events.add(event);
+    public UUID getId() {
+        return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

@@ -6,32 +6,29 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@Table(name = "inactiveusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"unknown_user_name", "event_id"})})
-public class InactiveUser implements Serializable {
+@Table(name = "inactiveusers")
+public class InactiveUser {
 
     @Id
     private UUID id;
 
-    @Column(name = "unknown_user_name")
     private String unknownUserName;
 
-    @Column(name = "presence_comments")
     private String presenceComments;
 
     @ManyToOne
-    @ToString.Exclude
     @JsonBackReference
-    @JoinColumn(name = "event_id")
     private Event event;
-
 
     public InactiveUser() {
         this.id = UUID.randomUUID();
@@ -44,4 +41,35 @@ public class InactiveUser implements Serializable {
         this.event = event;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getUnknownUserName() {
+        return unknownUserName;
+    }
+
+    public void setUnknownUserName(String unknownUserName) {
+        this.unknownUserName = unknownUserName;
+    }
+
+    public String getPresenceComments() {
+        return presenceComments;
+    }
+
+    public void setPresenceComments(String presenceComments) {
+        this.presenceComments = presenceComments;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

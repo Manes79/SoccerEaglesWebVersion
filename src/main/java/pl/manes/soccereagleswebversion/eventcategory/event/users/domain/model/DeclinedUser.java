@@ -1,35 +1,27 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Table(name = "declinedusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"declined_user_name", "event_id"})})
-public class DeclinedUser implements Serializable {
+@Table(name = "declinedusers")
+public class DeclinedUser {
 
     @Id
     private UUID id;
 
-    @Column(name = "declined_user_name")
     private String declinedUserName;
 
-    @Column(name = "presence_comments")
     private String presenceComments;
 
     @ManyToOne
-    @ToString.Exclude
     @JsonBackReference
-    @JoinColumn(name = "event_id")
     private Event event;
 
     public DeclinedUser() {
@@ -43,4 +35,35 @@ public class DeclinedUser implements Serializable {
         this.event = event;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getDeclinedUserName() {
+        return declinedUserName;
+    }
+
+    public void setDeclinedUserName(String declinedUserName) {
+        this.declinedUserName = declinedUserName;
+    }
+
+    public String getPresenceComments() {
+        return presenceComments;
+    }
+
+    public void setPresenceComments(String presenceComments) {
+        this.presenceComments = presenceComments;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

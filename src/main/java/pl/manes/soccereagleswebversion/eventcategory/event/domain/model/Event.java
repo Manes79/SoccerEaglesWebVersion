@@ -1,62 +1,44 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.DeclinedUser;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.InactiveUser;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Table(name = "events", uniqueConstraints = {@UniqueConstraint(columnNames = {"event_name", "event_category_id"})})
-public class Event implements Serializable {
+@Table(name = "events")
+public class Event {
 
     @Id
     private UUID id;
 
-    @Column(name = "event_name")
     private String eventName;
-    @Column(name = "event_date")
+
     private String eventDate;
-    @Column(name = "event_place")
+
     private String eventPlace;
-    @Column(name = "event_comments")
+
     private String eventComments;
 
-
-    @ManyToOne
-    @JoinColumn(name = "event_category_id")
+    @ManyToOne()
     private EventCategory eventCategory;
 
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_id")
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @JsonManagedReference
     private Set<ConfirmedUser> confirmedUsers;
 
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @JsonManagedReference
-    @ToString.Exclude
     private Set<DeclinedUser> declinedUsers;
 
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
     @JsonManagedReference
-    @ToString.Exclude
     private Set<InactiveUser> inactiveUsers;
 
     public Event() {
@@ -72,6 +54,108 @@ public class Event implements Serializable {
         this.eventCategory = eventCategory;
         this.confirmedUsers = confirmedUsers;
         this.declinedUsers = declinedUsers;
+        this.inactiveUsers = inactiveUsers;
+    }
+
+    public Event addConfirmedUser(ConfirmedUser confirmedUser) {
+        if (confirmedUsers == null) {
+            confirmedUsers = new LinkedHashSet<>();
+        }
+        confirmedUser.setEvent(this);
+        confirmedUsers.add(confirmedUser);
+
+        return this;
+    }
+
+    public Event addDeclinedUser(DeclinedUser declinedUser) {
+        if (declinedUsers == null) {
+            declinedUsers = new LinkedHashSet<>();
+        }
+        declinedUser.setEvent(this);
+        declinedUsers.add(declinedUser);
+
+        return this;
+    }
+
+    public Event addInactiveUser(InactiveUser inactiveUser) {
+        if (inactiveUsers == null) {
+            inactiveUsers = new LinkedHashSet<>();
+        }
+        inactiveUser.setEvent(this);
+        inactiveUsers.add(inactiveUser);
+
+        return this;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getEventPlace() {
+        return eventPlace;
+    }
+
+    public void setEventPlace(String eventPlace) {
+        this.eventPlace = eventPlace;
+    }
+
+    public String getEventComments() {
+        return eventComments;
+    }
+
+    public void setEventComments(String eventComments) {
+        this.eventComments = eventComments;
+    }
+
+    public EventCategory getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
+    }
+
+    public Set<ConfirmedUser> getConfirmedUsers() {
+        return confirmedUsers;
+    }
+
+    public void setConfirmedUsers(Set<ConfirmedUser> confirmedUsers) {
+        this.confirmedUsers = confirmedUsers;
+    }
+
+    public Set<DeclinedUser> getDeclinedUsers() {
+        return declinedUsers;
+    }
+
+    public void setDeclinedUsers(Set<DeclinedUser> declinedUsers) {
+        this.declinedUsers = declinedUsers;
+    }
+
+    public Set<InactiveUser> getInactiveUsers() {
+        return inactiveUsers;
+    }
+
+    public void setInactiveUsers(Set<InactiveUser> inactiveUsers) {
         this.inactiveUsers = inactiveUsers;
     }
 }

@@ -17,30 +17,35 @@ public class EventCategoryController {
     private final EventCategoryService eventCategoryService;
 
     @GetMapping
-    List<EventCategory> displayAllCategories() {
-        return eventCategoryService.findAllCategories();
+    List<EventCategory> getEventCategories() {
+
+        return eventCategoryService.getEventCategories();
     }
 
     @GetMapping("{id}")
-    EventCategory getCategoryById(@PathVariable UUID id) {
-        return eventCategoryService.findCategoryById(id);
+    EventCategory getEventCategory(@PathVariable UUID id) {
+
+        return eventCategoryService.getEventCategory(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    EventCategory createCategory(@RequestBody EventCategory eventCategory) {
-        return eventCategoryService.createCategory(eventCategory);
+    EventCategory createEventCategory(@RequestBody EventCategory eventCategory) {
+
+        return eventCategoryService.createEventCategory(eventCategory);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    EventCategory updateCategory(@PathVariable UUID id, @RequestBody EventCategory eventCategory) {
-        return eventCategoryService.updateCategory(id, eventCategory);
+    EventCategory updateEventCategory(@PathVariable UUID id, @RequestBody EventCategory eventCategory) {
+
+        return eventCategoryService.updateEventCategory(id, eventCategory);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCategory(@PathVariable UUID id) {
-        eventCategoryService.deleteCategory(id);
+    void deleteEventCategory(@PathVariable UUID id) {
+
+        eventCategoryService.deleteEventCategory(id);
     }
 }

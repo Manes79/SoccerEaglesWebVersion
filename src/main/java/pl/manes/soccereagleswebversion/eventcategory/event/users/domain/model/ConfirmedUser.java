@@ -1,33 +1,27 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@Table(name = "confirmedusers", uniqueConstraints = {@UniqueConstraint(columnNames = {"confirmed_user_name", "event_id"})})
-public class ConfirmedUser implements Serializable {
+@Table(name = "confirmedusers")
+public class ConfirmedUser {
 
     @Id
     private UUID id;
-    @Column(name = "confirmed_user_name")
+
     private String confirmedUserName;
-    @Column(name = "presence_comments")
+
     private String presenceComments;
 
     @ManyToOne
-    @ToString.Exclude
     @JsonBackReference
-    @JoinColumn(name = "event_id")
     private Event event;
 
     public ConfirmedUser() {
@@ -41,4 +35,35 @@ public class ConfirmedUser implements Serializable {
         this.event = event;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getConfirmedUserName() {
+        return confirmedUserName;
+    }
+
+    public void setConfirmedUserName(String confirmedUserName) {
+        this.confirmedUserName = confirmedUserName;
+    }
+
+    public String getPresenceComments() {
+        return presenceComments;
+    }
+
+    public void setPresenceComments(String presenceComments) {
+        this.presenceComments = presenceComments;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

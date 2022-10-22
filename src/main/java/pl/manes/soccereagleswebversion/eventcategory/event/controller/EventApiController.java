@@ -1,6 +1,5 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
@@ -9,38 +8,43 @@ import pl.manes.soccereagleswebversion.eventcategory.event.service.EventService;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/categories{eventCategory-id}/event")
+@RequestMapping("api/v1/events")
 public class EventApiController {
 
     private final EventService eventService;
 
-    @GetMapping
-    List<Event> getEvents(@PathVariable("eventCategory-id") UUID eventCategoryId) {
-        return eventService.getEvents(eventCategoryId);
+    public EventApiController(EventService eventService) {
+        this.eventService = eventService;
     }
 
-    @GetMapping("{event-id}")
-    Event getEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @PathVariable("event-id") UUID eventId) {
-        return eventService.getEvent(eventId);
+    @GetMapping
+    List<Event> getEvents() {
+
+        return eventService.getEvents();
+    }
+
+    @GetMapping("{id}")
+    Event getEvent(@PathVariable UUID id) {
+
+        return eventService.getEvent(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Event createEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @RequestBody Event event) {
-        return eventService.createEvent(eventCategoryId, event);
+    Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
     }
 
-    @PutMapping("{event-id}")
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    Event updateEvent(@PathVariable("eventCategory-id") UUID eventCategoryId, @PathVariable("event-id") UUID eventId, @RequestBody Event event) {
-        return eventService.updateEvent(eventId, event);
+    Event updateEvent(@PathVariable UUID id, @RequestBody Event event) {
+        return eventService.updateEvent(id, event);
     }
 
-    @DeleteMapping("{event-id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEvent(@PathVariable("event-id") UUID eventId, @PathVariable("eventCategory-id") String parameter) {
-        eventService.deleteEvent(eventId);
+    void deleteEvent(@PathVariable UUID id) {
+        eventService.deleteEvent(id);
     }
 }
