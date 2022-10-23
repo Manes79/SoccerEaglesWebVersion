@@ -1,6 +1,5 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.DeclinedUser;
@@ -10,37 +9,45 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("api/v1/events/declinedusers")
+@RequestMapping("api/v1/events/{event-id}/declinedusers")
 public class DeclinedUserApiController {
 
     private final DeclinedUserService declinedUserService;
 
-    @GetMapping
-    List<DeclinedUser> displayAllDeclinedUsers() {
-        return declinedUserService.findAllDeclinedUsers();
+    public DeclinedUserApiController(DeclinedUserService declinedUserService) {
+        this.declinedUserService = declinedUserService;
     }
 
-    @GetMapping("{id}")
-    DeclinedUser displayDeclinedUserById(@PathVariable UUID id) {
-        return declinedUserService.findDeclinedUserById(id);
+    @GetMapping
+    List<DeclinedUser> getDeclinedUsers(@PathVariable("event-id") UUID eventId) {
+
+        return declinedUserService.getDeclinedUsers(eventId);
+    }
+
+    @GetMapping("{declined-id}")
+    DeclinedUser getDeclinedUser(@PathVariable("event-id") UUID eventId, @PathVariable("declined-id") UUID declinedId) {
+
+        return declinedUserService.getDeclinedUser(declinedId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    DeclinedUser displayCreateDeclinedUser(@RequestBody DeclinedUser declinedUser) {
-        return declinedUserService.createDeclinedUser(declinedUser);
+    DeclinedUser createDeclinedUser(@PathVariable("event-id") UUID eventId, @RequestBody DeclinedUser declinedUser) {
+
+        return declinedUserService.createDeclinedUser(eventId, declinedUser);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{declined-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    DeclinedUser displayUserDeclinedForEventToChange(@PathVariable UUID id, @RequestBody DeclinedUser declinedUser) {
-        return declinedUserService.updateDeclinedUser(id, declinedUser);
+    DeclinedUser updateDeclinedUser(@PathVariable("event-id") UUID eventId, @PathVariable("declined-id") UUID declinedId, @RequestBody DeclinedUser declinedUser) {
+
+        return declinedUserService.updateDeclinedUser(declinedId, declinedUser);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{declined-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void userDeletesDeclinedForEvent(@PathVariable UUID id) {
-        declinedUserService.deleteDeclinedUser(id);
+    void deleteDeclinedUser(@PathVariable("declined-id") UUID declinedId, @PathVariable("event-id") String parameter) {
+
+        declinedUserService.deleteDeclinedUser(declinedId);
     }
 }

@@ -1,6 +1,5 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.ConfirmedUser;
@@ -10,37 +9,45 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("api/v1/events/confirmedusers")
+@RequestMapping("api/v1/events/{event-id}/confirmedusers")
 public class ConfirmedUserApiController {
 
     private final ConfirmedUserService confirmedUserService;
 
+    public ConfirmedUserApiController(ConfirmedUserService confirmedUserService) {
+        this.confirmedUserService = confirmedUserService;
+    }
+
     @GetMapping
-    List<ConfirmedUser> displayAllConfirmedUsers() {
-        return confirmedUserService.findAllConfirmedUsers();
+    List<ConfirmedUser> getConfirmedUsers(@PathVariable("event-id") UUID eventId) {
+
+        return confirmedUserService.getConfirmedUsers(eventId);
     }
 
-    @GetMapping("{id}")
-    ConfirmedUser displayConfirmedUserById(@PathVariable UUID id) {
-        return confirmedUserService.findConfirmedUserById(id);
+    @GetMapping("{confirmed-id}")
+    ConfirmedUser getConfirmedUser(@PathVariable("event-id") UUID eventId, @PathVariable("confirmed-id") UUID confirmedId) {
+
+        return confirmedUserService.getConfirmedUser(confirmedId);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    ConfirmedUser displayConfirmedUser(@RequestBody ConfirmedUser confirmedUser) {
-        return confirmedUserService.createConfirmedUser(confirmedUser);
+    @ResponseStatus(HttpStatus.CREATED)
+    ConfirmedUser createConfirmedUser(@PathVariable("event-id") UUID eventId, @RequestBody ConfirmedUser confirmedUser) {
+
+        return confirmedUserService.createConfirmedUser(eventId, confirmedUser);
     }
 
+    @PutMapping("{confirmed-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @PutMapping("{id}")
-    ConfirmedUser displayUpdateConfirmedUser(@PathVariable UUID id, @RequestBody ConfirmedUser confirmedUser) {
-        return confirmedUserService.updateConfirmedUser(id, confirmedUser);
+    ConfirmedUser updateConfirmedUser(@PathVariable("event-id") UUID eventId, @PathVariable("confirmed-id") UUID confirmedId, @RequestBody ConfirmedUser confirmedUser) {
+
+        return confirmedUserService.updateConfirmedUser(confirmedId, confirmedUser);
     }
 
+    @DeleteMapping("{confirmed-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
-    void displayDeleteConfirmedUser(@PathVariable UUID id) {
-        confirmedUserService.deleteConfirmedUser(id);
+    void deleteConfirmedUser(@PathVariable("confirmed-id") UUID confirmedId, @PathVariable("event-id") String parameter) {
+
+        confirmedUserService.deleteConfirmedUser(confirmedId);
     }
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/categories")
-public class EventCategoryController {
+public class EventCategoryApiController {
 
     private final EventCategoryService eventCategoryService;
 

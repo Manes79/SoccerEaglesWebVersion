@@ -1,6 +1,5 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.InactiveUser;
@@ -10,37 +9,45 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("api/v1/inactiveusers")
+@RequestMapping("api/v1/events/{event-id}/inactiveusers")
 public class InactiveUserApiController {
 
     private final InactiveUserService inactiveUserService;
 
-    @GetMapping
-    List<InactiveUser> displayInactiveUsers() {
-        return inactiveUserService.findAllInactiveUsers();
+    public InactiveUserApiController(InactiveUserService inactiveUserService) {
+        this.inactiveUserService = inactiveUserService;
     }
 
-    @GetMapping("{id}")
-    InactiveUser displayInactiveUsersById(@PathVariable UUID id) {
-        return inactiveUserService.findInactiveUserById(id);
+    @GetMapping
+    List<InactiveUser> getInactiveUsers(@PathVariable("event-id") UUID eventId) {
+
+        return inactiveUserService.getInactiveUsers(eventId);
+    }
+
+    @GetMapping("{inactive-id}")
+    InactiveUser getInactiveUser(@PathVariable("event-id") UUID eventId, @PathVariable("inactive-id") UUID inactiveId) {
+
+        return inactiveUserService.getInactiveUser(inactiveId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    InactiveUser displayCreateInactiveUser(@RequestBody InactiveUser inactiveUser) {
-        return inactiveUserService.createInactiveUser(inactiveUser);
+    InactiveUser createInactiveUser(@PathVariable("event-id") UUID eventId, @RequestBody InactiveUser inactiveUser) {
+
+        return inactiveUserService.createInactiveUser(eventId, inactiveUser);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{inactive-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    InactiveUser displayUpdateInactiveUser(@PathVariable UUID id, @RequestBody InactiveUser inactiveUser) {
-        return inactiveUserService.updateInactiveUser(id, inactiveUser);
+    InactiveUser updateInactiveUser(@PathVariable("event-id") UUID eventId, @PathVariable("inactive-id") UUID inactiveId, @RequestBody InactiveUser inactiveUser) {
+
+        return inactiveUserService.updateInactiveUser(inactiveId, inactiveUser);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{inactive-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void displayDeleteInactiveUser(@PathVariable UUID id) {
-        inactiveUserService.deleteInactiveUser(id);
+    void deleteConfirmedUser(@PathVariable("inactive-id") UUID inactiveId, @PathVariable("event-id") String parameter) {
+
+        inactiveUserService.deleteInactiveUser(inactiveId);
     }
 }
