@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/events/{event-id}/declinedusers")
+@RequestMapping("api/v1/events{event-id}/declinedusers")
 public class DeclinedUserApiController {
 
     private final DeclinedUserService declinedUserService;

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/events/{event-id}/inactiveusers")
+@RequestMapping("api/v1/events{event-id}/inactiveusers")
 public class InactiveUserApiController {
 
     private final InactiveUserService inactiveUserService;

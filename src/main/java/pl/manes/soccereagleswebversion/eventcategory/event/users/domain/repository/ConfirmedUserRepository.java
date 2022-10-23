@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface ConfirmedUserRepository extends JpaRepository<ConfirmedUser, UUID> {
 
-    List<ConfirmedUser> findByEventId(UUID eventId);
+    List<ConfirmedUser> findByEventId(UUID id);
 
 }

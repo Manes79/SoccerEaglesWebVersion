@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/events/{event-id}/confirmedusers")
+@RequestMapping("api/v1/events/confirmedusers")
 public class ConfirmedUserApiController {
 
     private final ConfirmedUserService confirmedUserService;
@@ -19,35 +19,35 @@ public class ConfirmedUserApiController {
     }
 
     @GetMapping
-    List<ConfirmedUser> getConfirmedUsers(@PathVariable("event-id") UUID eventId) {
+    List<ConfirmedUser> getConfirmedUsers(UUID id) {
 
-        return confirmedUserService.getConfirmedUsers(eventId);
+        return confirmedUserService.getConfirmedUsers(id);
     }
 
-    @GetMapping("{confirmed-id}")
-    ConfirmedUser getConfirmedUser(@PathVariable("event-id") UUID eventId, @PathVariable("confirmed-id") UUID confirmedId) {
+    @GetMapping("{id}")
+    ConfirmedUser getConfirmedUser(@PathVariable UUID id) {
 
-        return confirmedUserService.getConfirmedUser(confirmedId);
+        return confirmedUserService.getConfirmedUser(id);
     }
 
-    @PostMapping
+    @PostMapping("{eventid}")
     @ResponseStatus(HttpStatus.CREATED)
-    ConfirmedUser createConfirmedUser(@PathVariable("event-id") UUID eventId, @RequestBody ConfirmedUser confirmedUser) {
+    ConfirmedUser createConfirmedUser(@PathVariable UUID eventid, @RequestBody ConfirmedUser confirmedUser) {
 
-        return confirmedUserService.createConfirmedUser(eventId, confirmedUser);
+        return confirmedUserService.createConfirmedUser(eventid, confirmedUser);
     }
 
-    @PutMapping("{confirmed-id}")
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    ConfirmedUser updateConfirmedUser(@PathVariable("event-id") UUID eventId, @PathVariable("confirmed-id") UUID confirmedId, @RequestBody ConfirmedUser confirmedUser) {
+    ConfirmedUser updateConfirmedUser(@PathVariable UUID id, @RequestBody ConfirmedUser confirmedUser) {
 
-        return confirmedUserService.updateConfirmedUser(confirmedId, confirmedUser);
+        return confirmedUserService.updateConfirmedUser(id, confirmedUser);
     }
 
-    @DeleteMapping("{confirmed-id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteConfirmedUser(@PathVariable("confirmed-id") UUID confirmedId, @PathVariable("event-id") String parameter) {
+    void deleteConfirmedUser(@PathVariable UUID id) {
 
-        confirmedUserService.deleteConfirmedUser(confirmedId);
+        confirmedUserService.deleteConfirmedUser(id);
     }
 }
