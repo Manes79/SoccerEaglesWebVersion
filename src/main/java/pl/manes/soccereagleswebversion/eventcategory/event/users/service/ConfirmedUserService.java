@@ -23,9 +23,9 @@ public class ConfirmedUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<ConfirmedUser> getConfirmedUsers(UUID id) {
+    public List<ConfirmedUser> getConfirmedUsers() {
 
-        return confirmedUserRepository.findByEventId(id);
+        return confirmedUserRepository.findAll();
     }
 
     @Transactional(readOnly = true)

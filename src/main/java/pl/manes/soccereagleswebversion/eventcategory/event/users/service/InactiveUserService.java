@@ -23,9 +23,9 @@ public class InactiveUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<InactiveUser> getInactiveUsers(UUID eventId) {
+    public List<InactiveUser> getInactiveUsers() {
 
-        return inactiveUserRepository.findByEventId(eventId);
+        return inactiveUserRepository.findAll();
     }
 
     @Transactional(readOnly = true)

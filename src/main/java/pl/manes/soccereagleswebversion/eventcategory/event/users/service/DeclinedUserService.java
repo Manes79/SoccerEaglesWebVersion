@@ -23,9 +23,9 @@ public class DeclinedUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<DeclinedUser> getDeclinedUsers(UUID eventId) {
+    public List<DeclinedUser> getDeclinedUsers() {
 
-        return declinedUserRepository.findByEventId(eventId);
+        return declinedUserRepository.findAll();
     }
 
     @Transactional(readOnly = true)
