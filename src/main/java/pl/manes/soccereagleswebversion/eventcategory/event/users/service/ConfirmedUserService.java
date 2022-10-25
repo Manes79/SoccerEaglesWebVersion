@@ -35,13 +35,13 @@ public class ConfirmedUserService {
     }
 
     @Transactional
-    public ConfirmedUser createConfirmedUser(UUID eventId, ConfirmedUser confirmedUserRequest) {
+    public ConfirmedUser createConfirmedUser(UUID id, ConfirmedUser confirmedUserRequest) {
 
         ConfirmedUser confirmedUser = new ConfirmedUser();
         confirmedUser.setConfirmedUserName(confirmedUserRequest.getConfirmedUserName());
         confirmedUser.setPresenceComments(confirmedUserRequest.getPresenceComments());
 
-        Event event = eventRepository.getReferenceById(eventId);
+        Event event = eventRepository.getReferenceById(id);
         event.addConfirmedUser(confirmedUser);
 
         confirmedUserRepository.save(confirmedUser);

@@ -1,9 +1,11 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.Hibernate;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -62,5 +64,18 @@ public class DeclinedUser {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        DeclinedUser that = (DeclinedUser) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

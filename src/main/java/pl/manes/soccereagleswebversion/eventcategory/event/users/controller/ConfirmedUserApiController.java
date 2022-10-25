@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/events/confirmedusers")
+@RequestMapping("api/v1/confirmedusers")
 public class ConfirmedUserApiController {
 
     private final ConfirmedUserService confirmedUserService;
@@ -19,7 +19,7 @@ public class ConfirmedUserApiController {
     }
 
     @GetMapping
-    List<ConfirmedUser> getConfirmedUsers(UUID id) {
+    List<ConfirmedUser> getConfirmedUsers(@PathVariable UUID id) {
 
         return confirmedUserService.getConfirmedUsers(id);
     }
@@ -30,11 +30,11 @@ public class ConfirmedUserApiController {
         return confirmedUserService.getConfirmedUser(id);
     }
 
-    @PostMapping("{eventid}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ConfirmedUser createConfirmedUser(@PathVariable UUID eventid, @RequestBody ConfirmedUser confirmedUser) {
+    ConfirmedUser createConfirmedUser(@PathVariable UUID id, @RequestBody ConfirmedUser confirmedUser) {
 
-        return confirmedUserService.createConfirmedUser(eventid, confirmedUser);
+        return confirmedUserService.createConfirmedUser(id, confirmedUser);
     }
 
     @PutMapping("{id}")

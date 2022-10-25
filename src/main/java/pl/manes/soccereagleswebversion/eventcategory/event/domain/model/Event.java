@@ -1,6 +1,7 @@
 package pl.manes.soccereagleswebversion.eventcategory.event.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.Hibernate;
 import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.ConfirmedUser;
 import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.DeclinedUser;
@@ -8,6 +9,7 @@ import pl.manes.soccereagleswebversion.eventcategory.event.users.domain.model.In
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -57,34 +59,31 @@ public class Event {
         this.inactiveUsers = inactiveUsers;
     }
 
-    public Event addConfirmedUser(ConfirmedUser confirmedUser) {
+    public void addConfirmedUser(ConfirmedUser confirmedUser) {
         if (confirmedUsers == null) {
             confirmedUsers = new LinkedHashSet<>();
         }
         confirmedUser.setEvent(this);
         confirmedUsers.add(confirmedUser);
 
-        return this;
     }
 
-    public Event addDeclinedUser(DeclinedUser declinedUser) {
+    public void addDeclinedUser(DeclinedUser declinedUser) {
         if (declinedUsers == null) {
             declinedUsers = new LinkedHashSet<>();
         }
         declinedUser.setEvent(this);
         declinedUsers.add(declinedUser);
 
-        return this;
     }
 
-    public Event addInactiveUser(InactiveUser inactiveUser) {
+    public void addInactiveUser(InactiveUser inactiveUser) {
         if (inactiveUsers == null) {
             inactiveUsers = new LinkedHashSet<>();
         }
         inactiveUser.setEvent(this);
         inactiveUsers.add(inactiveUser);
 
-        return this;
     }
 
     public UUID getId() {
@@ -157,5 +156,18 @@ public class Event {
 
     public void setInactiveUsers(Set<InactiveUser> inactiveUsers) {
         this.inactiveUsers = inactiveUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Event event = (Event) o;
+        return id != null && Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
