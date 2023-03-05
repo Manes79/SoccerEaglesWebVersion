@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.event.domain.model.Event;
 import pl.manes.soccereagleswebversion.eventcategory.event.service.EventService;
-import pl.manes.soccereagleswebversion.eventcategory.domain.model.EventCategory;
 import pl.manes.soccereagleswebversion.eventcategory.service.EventCategoryService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +52,7 @@ public class EventCategoryWebViewController {
     public String viewAllEventCategories(Model model) {
 
         model.addAttribute("categories", eventCategoryService.findAllCategories());
-        model.addAttribute("events", eventService.findAllEvents());
+//        model.addAttribute("events", eventService.findAllEventsByEventCategoryId());
 
         return "eventcategory/index";
     }
@@ -59,12 +60,12 @@ public class EventCategoryWebViewController {
     @GetMapping("{id}/single")
     public String singleWebViewCategory(@PathVariable UUID id, Model model) {
 
-        EventCategory eventCategory = eventCategoryService.findCategoryById(id);
-        List<Event> events = eventService.findAllEvents();
-
-        model.addAttribute("category", eventCategory);
-        model.addAttribute("event", events);
-        model.addAttribute("events", eventService.findAllEventsByEventCategoryId(id));
+//        EventCategory eventCategory = eventCategoryService.getEventCategory(id);
+//        List<Event> events = Collections.singletonList(eventService.getEvent(id));
+//
+//        model.addAttribute("category", eventCategory);
+//        model.addAttribute("event", events);
+//        model.addAttribute("events", eventService.getEvent(id));
 
         return "eventcategory/single";
     }
